@@ -6,19 +6,16 @@ public class Game {
 
     private static final String LOG_TAG = Game.class.getSimpleName();
     private static final int BOARD_SIZE = 3;
-    private final String playerOne = "P1";
-    private final String playerTwo = "P2";
-
 
     private Player player1;
     private Player player2;
 
-    private Player currentPlayer;
-    private Cell[][] cells;
+    public Player currentPlayer;
+    public Cell[][] cells;
 
-    private MutableLiveData<Player> winner = new MutableLiveData<>();
+    public MutableLiveData<Player> winner = new MutableLiveData<>();
 
-    public Game() {
+    public Game(String playerOne, String playerTwo) {
         cells = new Cell[BOARD_SIZE][BOARD_SIZE];
         player1 = new Player(playerOne, "x");
         player2 = new Player(playerTwo, "o");
@@ -110,8 +107,8 @@ public class Game {
 
         Cell compareCell = cells[0];
 
-        for (int i = 0; i < cells.length; i++) {
-            if (!compareCell.player.getValue().equals(cells[i].player.getValue())) {
+        for (Cell cell : cells) {
+            if (!compareCell.player.getValue().equals(cell.player.getValue())) {
                 return false;
             }
         }

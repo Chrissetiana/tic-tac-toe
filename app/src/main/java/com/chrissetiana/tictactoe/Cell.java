@@ -1,7 +1,5 @@
 package com.chrissetiana.tictactoe;
 
-import android.text.TextUtils;
-
 public class Cell {
 
     Player player;
@@ -11,6 +9,6 @@ public class Cell {
     }
 
     boolean isEmpty() {
-        return player == null || TextUtils.isEmpty(player.getValue());
+        return player == null || StringUtility.isNullOrEmpty(player.getValue());
     }
 }
