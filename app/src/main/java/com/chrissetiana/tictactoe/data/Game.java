@@ -1,4 +1,4 @@
-package com.chrissetiana.tictactoe;
+package com.chrissetiana.tictactoe.data;
 
 import android.arch.lifecycle.MutableLiveData;
 

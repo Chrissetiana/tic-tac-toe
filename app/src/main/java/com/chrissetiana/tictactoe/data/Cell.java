@@ -1,4 +1,6 @@
-package com.chrissetiana.tictactoe;
+package com.chrissetiana.tictactoe.data;
+
+import com.chrissetiana.tictactoe.util.StringUtility;
 
 public class Cell {
 

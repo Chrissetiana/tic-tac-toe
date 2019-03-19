@@ -1,10 +1,14 @@
-package com.chrissetiana.tictactoe;
+package com.chrissetiana.tictactoe.util;
 
 import android.arch.lifecycle.LiveData;
 import android.arch.lifecycle.ViewModel;
 import android.databinding.ObservableArrayMap;
 
-import static com.chrissetiana.tictactoe.StringUtility.stringFromNumbers;
+import com.chrissetiana.tictactoe.data.Cell;
+import com.chrissetiana.tictactoe.data.Game;
+import com.chrissetiana.tictactoe.data.Player;
+
+import static com.chrissetiana.tictactoe.util.StringUtility.stringFromNumbers;
 
 public class GameViewModel extends ViewModel {
 
@@ -16,7 +20,7 @@ public class GameViewModel extends ViewModel {
         cells = new ObservableArrayMap<>();
     }
 
-    public void onCellClickk(int row, int column) {
+    public void onClickedCellAt(int row, int column) {
         if (game.cells[row][column] == null) {
             game.cells[row][column] = new Cell(game.currentPlayer);
             cells.put(stringFromNumbers(row, column), game.currentPlayer.getValue());

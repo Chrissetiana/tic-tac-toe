@@ -1,4 +1,4 @@
-package com.chrissetiana.tictactoe;
+package com.chrissetiana.tictactoe.util;
 
 public class StringUtility {
 
@@ -11,7 +11,7 @@ public class StringUtility {
         return builder.toString();
     }
 
-    static boolean isNullOrEmpty(String string) {
+    public static boolean isNullOrEmpty(String string) {
         return string == null || string.length() == 0;
     }
 }

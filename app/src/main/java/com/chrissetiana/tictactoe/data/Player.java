@@ -1,6 +1,6 @@
-package com.chrissetiana.tictactoe;
+package com.chrissetiana.tictactoe.data;
 
-class Player {
+public class Player {
 
     private String name;
     private String value;
@@ -10,7 +10,7 @@ class Player {
         this.value = value;
     }
 
-    String getValue() {
+    public String getValue() {
         return value;
     }
 }
