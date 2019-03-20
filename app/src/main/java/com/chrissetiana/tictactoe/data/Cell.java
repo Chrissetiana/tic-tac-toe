@@ -1,6 +1,6 @@
 package com.chrissetiana.tictactoe.data;
 
-import com.chrissetiana.tictactoe.util.StringUtility;
+import com.chrissetiana.tictactoe.util.Utils;
 
 public class Cell {
 
@@ -11,6 +11,6 @@ public class Cell {
     }
 
     boolean isEmpty() {
-        return player == null || StringUtility.isNullOrEmpty(player.getValue());
+        return player == null || Utils.isNullOrEmpty(player.value);
     }
 }

@@ -8,11 +8,11 @@ import com.chrissetiana.tictactoe.data.Cell;
 import com.chrissetiana.tictactoe.data.Game;
 import com.chrissetiana.tictactoe.data.Player;
 
-import static com.chrissetiana.tictactoe.util.StringUtility.stringFromNumbers;
+import static com.chrissetiana.tictactoe.util.Utils.stringFromNumbers;
 
 public class GameViewModel extends ViewModel {
 
-    private ObservableArrayMap<String, String> cells;
+    public ObservableArrayMap<String, String> cells;
     private Game game;
 
     public void init(String player1, String player2) {
@@ -23,12 +23,12 @@ public class GameViewModel extends ViewModel {
     public void onClickedCellAt(int row, int column) {
         if (game.cells[row][column] == null) {
             game.cells[row][column] = new Cell(game.currentPlayer);
-            cells.put(stringFromNumbers(row, column), game.currentPlayer.getValue());
+            cells.put(stringFromNumbers(row, column), game.currentPlayer.value);
 
-            if (game.hasGameEnded()) {
+            if (game.isGameOver()) {
                 game.reset();
             } else {
-                game.switchPlayer();
+                game.changePlayer();
             }
         }
     }

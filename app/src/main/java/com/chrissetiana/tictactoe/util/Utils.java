@@ -1,8 +1,8 @@
 package com.chrissetiana.tictactoe.util;
 
-public class StringUtility {
+public class Utils {
 
-    public static String stringFromNumbers(int... numbers) {
+    static String stringFromNumbers(int... numbers) {
         StringBuilder builder = new StringBuilder();
         for (int number : numbers) {
             builder.append(number);

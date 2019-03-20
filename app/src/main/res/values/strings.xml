@@ -1,4 +1,13 @@
 <resources>
     <string name="app_name">Tic Tac Toe</string>
-    <string name="button_reset">RESET</string>
+
+    <string name="hint_playerA">Player 1</string>
+    <string name="hint_playerB">Player 2</string>
+
+    <string name="text_winner_title">The winner is</string>
+    <string name="text_dialog_title">New game</string>
+    <string name="button_done">DONE</string>
+
+    <string name="error_empty_name">Name mustn\'t be empty</string>
+    <string name="error_same_names">Names mustn\'t be same</string>
 </resources>

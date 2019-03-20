@@ -9,29 +9,31 @@ import android.support.v7.app.AppCompatActivity;
 
 import com.chrissetiana.tictactoe.R;
 import com.chrissetiana.tictactoe.data.Player;
+import com.chrissetiana.tictactoe.databinding.ActivityGameBinding;
 import com.chrissetiana.tictactoe.util.GameViewModel;
 
-import static com.chrissetiana.tictactoe.util.StringUtility.isNullOrEmpty;
+import static com.chrissetiana.tictactoe.util.Utils.isNullOrEmpty;
 
 public class GameActivity extends AppCompatActivity {
 
-    private static final String GAME_BEGIN_DIALOG_TAG = "game_begin_dialog_tag";
+    private static final String GAME_BEGIN_DIALOG_TAG = "game_dialog_tag";
     private static final String GAME_END_DIALOG_TAG = "game_end_dialog_tag";
-    private static final String NO_WINNER = "No Winner";
+    private static final String NO_WINNER = "No one";
     private GameViewModel gameViewModel;
 
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        promptForPlayers();
+        startNewGame();
     }
 
-    private void promptForPlayers() {
+    public void startNewGame() {
         GameBeginDialog dialog = GameBeginDialog.newInstance(this);
+        dialog.setCancelable(false);
         dialog.show(getSupportFragmentManager(), GAME_BEGIN_DIALOG_TAG);
     }
 
-    private void onPlayerSet(String player1, String player2) {
+    public void setPlayers(String player1, String player2) {
         initDataBinding(player1, player2);
     }
 
@@ -42,17 +44,19 @@ public class GameActivity extends AppCompatActivity {
         gameViewModel.init(player1, player2);
 
         activityGameBinding.setGameViewModel(gameViewModel);
-        setupOnGameEndListener();
+        onEndGameListener();
     }
 
-    private void setupOnGameEndListener() {
-        gameViewModel.getWinner().observe(this, this::onGameWinnerChanged);
+    private void onEndGameListener() {
+        gameViewModel.getWinner().observe(this, this::endCurrentGame);
     }
 
     @VisibleForTesting
-    private void onGameWinnerChanged(Player winner) {
-        String winnerName = winner == null || isNullOrEmpty(winner.getName()) ? NO_WINNER : winner.getName();
-        GameEndDialog dialog = GameEndDialog.newInstance(this, winnerName);
+    public void endCurrentGame(Player winner) {
+        String winnerName = winner == null || isNullOrEmpty(winner.name) ? NO_WINNER : winner.name;
+
+        GameEndDialog dialog = GameEndDialog.getInstance(this, winnerName);
+        dialog.setCancelable(false);
         dialog.show(getSupportFragmentManager(), GAME_END_DIALOG_TAG);
     }
 }

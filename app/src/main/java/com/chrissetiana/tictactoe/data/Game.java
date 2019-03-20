@@ -2,31 +2,25 @@ package com.chrissetiana.tictactoe.data;
 
 import android.arch.lifecycle.MutableLiveData;
 
+import static com.chrissetiana.tictactoe.util.Utils.isNullOrEmpty;
+
 public class Game {
 
-    private static final String LOG_TAG = Game.class.getSimpleName();
-    private static final int BOARD_SIZE = 3;
-
-    private Player player1;
-    private Player player2;
-
+    private static final int SIZE = 3;
+    private Player playerA;
+    private Player playerB;
     public Player currentPlayer;
     public Cell[][] cells;
-
     public MutableLiveData<Player> winner = new MutableLiveData<>();
 
-    public Game(String playerOne, String playerTwo) {
-        cells = new Cell[BOARD_SIZE][BOARD_SIZE];
-        player1 = new Player(playerOne, "x");
-        player2 = new Player(playerTwo, "o");
-        currentPlayer = player1;
+    public Game(String player1, String player2) {
+        cells = new Cell[SIZE][SIZE];
+        playerA = new Player(player1, "x");
+        playerB = new Player(player2, "o");
+        currentPlayer = playerA;
     }
 
-    public void switchPlayer() {
-        currentPlayer = currentPlayer == player1 ? player2 : player1;
-    }
-
-    public boolean hasGameEnded() {
+    public boolean isGameOver() {
         if (hasSameHorizontalCells() || hasSameVerticalCells() || hasSameDiagonalCells()) {
             winner.setValue(currentPlayer);
             return true;
@@ -42,7 +36,7 @@ public class Game {
 
     private boolean hasSameHorizontalCells() {
         try {
-            for (int i = 0; i < BOARD_SIZE; i++) {
+            for (int i = 0; i < SIZE; i++) {
                 if (areEqual(cells[i][0], cells[i][1], cells[i][2])) {
                     return true;
                 }
@@ -57,7 +51,7 @@ public class Game {
 
     private boolean hasSameVerticalCells() {
         try {
-            for (int i = 0; i < BOARD_SIZE; i++) {
+            for (int i = 0; i < SIZE; i++) {
                 if (areEqual(cells[0][i], cells[1][i], cells[2][i])) {
                     return true;
                 }
@@ -98,17 +92,14 @@ public class Game {
         }
 
         for (Cell cell : cells) {
-            if (cell == null ||
-                    cell.player.getValue() == null ||
-                    cell.player.getValue().length() == 0) {
+            if (cell == null || isNullOrEmpty(cell.player.value)) {
                 return false;
             }
         }
 
-        Cell compareCell = cells[0];
-
-        for (Cell cell : cells) {
-            if (!compareCell.player.getValue().equals(cell.player.getValue())) {
+        Cell comparisonBase = cells[0];
+        for (int i = 1; i < cells.length; i++) {
+            if (!comparisonBase.player.value.equals(cells[i].player.value)) {
                 return false;
             }
         }
@@ -116,9 +107,13 @@ public class Game {
         return true;
     }
 
+    public void changePlayer() {
+        currentPlayer = currentPlayer == playerA ? playerB : playerA;
+    }
+
     public void reset() {
-        player1 = null;
-        player2 = null;
+        playerA = null;
+        playerB = null;
         currentPlayer = null;
         cells = null;
     }
