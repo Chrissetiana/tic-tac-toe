@@ -20,17 +20,14 @@ public class GameBeginDialog extends DialogFragment {
 
     private TextInputLayout player1Layout;
     private TextInputLayout player2Layout;
-
     private TextInputEditText player1EditText;
     private TextInputEditText player2EditText;
-
     private String player1;
     private String player2;
-
     private View rootView;
     private GameActivity activity;
 
-    public static GameBeginDialog newInstance(GameActivity activity) {
+    public static GameBeginDialog getInstance(GameActivity activity) {
         GameBeginDialog dialog = new GameBeginDialog();
         dialog.activity = activity;
         return dialog;

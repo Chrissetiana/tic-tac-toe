@@ -2,7 +2,7 @@ package com.chrissetiana.tictactoe.util;
 
 public class Utils {
 
-    static String stringFromNumbers(int... numbers) {
+    static String stringFormat(int... numbers) {
         StringBuilder builder = new StringBuilder();
         for (int number : numbers) {
             builder.append(number);

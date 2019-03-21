@@ -32,6 +32,7 @@ public class GameEndDialog extends DialogFragment {
 
         AlertDialog alertDialog = new AlertDialog.Builder(getContext())
                 .setView(rootView)
+                .setTitle(R.string.text_dialog_title2)
                 .setCancelable(false)
                 .setPositiveButton(R.string.button_done, ((dialog, which) -> onNewGame()))
                 .create();

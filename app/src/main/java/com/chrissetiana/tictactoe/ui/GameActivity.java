@@ -16,10 +16,10 @@ import static com.chrissetiana.tictactoe.util.Utils.isNullOrEmpty;
 
 public class GameActivity extends AppCompatActivity {
 
-    private static final String GAME_BEGIN_DIALOG_TAG = "game_dialog_tag";
-    private static final String GAME_END_DIALOG_TAG = "game_end_dialog_tag";
+    private static final String GAME_BEGIN = "game_dialog_tag";
+    private static final String GAME_END = "game_end_dialog_tag";
     private static final String NO_WINNER = "No one";
-    private GameViewModel gameViewModel;
+    private GameViewModel viewModel;
 
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {
@@ -28,9 +28,9 @@ public class GameActivity extends AppCompatActivity {
     }
 
     public void startNewGame() {
-        GameBeginDialog dialog = GameBeginDialog.newInstance(this);
+        GameBeginDialog dialog = GameBeginDialog.getInstance(this);
         dialog.setCancelable(false);
-        dialog.show(getSupportFragmentManager(), GAME_BEGIN_DIALOG_TAG);
+        dialog.show(getSupportFragmentManager(), GAME_BEGIN);
     }
 
     public void setPlayers(String player1, String player2) {
@@ -40,15 +40,15 @@ public class GameActivity extends AppCompatActivity {
     private void initDataBinding(String player1, String player2) {
         ActivityGameBinding activityGameBinding = DataBindingUtil.setContentView(this, R.layout.activity_game);
 
-        gameViewModel = ViewModelProviders.of(this).get(GameViewModel.class);
-        gameViewModel.init(player1, player2);
+        viewModel = ViewModelProviders.of(this).get(GameViewModel.class);
+        viewModel.init(player1, player2);
 
-        activityGameBinding.setGameViewModel(gameViewModel);
-        onEndGameListener();
+        activityGameBinding.setGameViewModel(viewModel);
+        setGameListener();
     }
 
-    private void onEndGameListener() {
-        gameViewModel.getWinner().observe(this, this::endCurrentGame);
+    private void setGameListener() {
+        viewModel.getWinner().observe(this, this::endCurrentGame);
     }
 
     @VisibleForTesting
@@ -57,6 +57,6 @@ public class GameActivity extends AppCompatActivity {
 
         GameEndDialog dialog = GameEndDialog.getInstance(this, winnerName);
         dialog.setCancelable(false);
-        dialog.show(getSupportFragmentManager(), GAME_END_DIALOG_TAG);
+        dialog.show(getSupportFragmentManager(), GAME_END);
     }
 }
